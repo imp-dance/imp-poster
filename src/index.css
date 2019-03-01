@@ -12,10 +12,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #282c34;
-  color: #f9f9f9;
   -webkit-app-region: drag;
   min-height: 100vh;
+  background: #daddef;
+  font-size: 16px;
 }
 
 code {
