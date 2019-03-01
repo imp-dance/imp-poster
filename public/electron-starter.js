@@ -16,15 +16,15 @@ let mainWindow;
 createWindow = () => {
   mainWindow = new BrowserWindow({
     backgroundColor: "#F7F7F7",
-    minWidth: 880,
+    minWidth: 700,
     show: false,
     titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: false,
       preload: __dirname + "/preload.js"
     },
-    height: 860,
-    width: 1280
+    height: 750,
+    width: 700
   });
   mainWindow.hide();
   mainWindow.loadURL(
