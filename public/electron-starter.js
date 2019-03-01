@@ -7,7 +7,7 @@ const {
   TouchBar
 } = require("electron");
 const { TouchBarButton, TouchBarLabel, TouchBarSpacer } = TouchBar;
-let menubarTemplate = require("../src/exports/menubar.js").default;
+const menubarTemplate = require("../src/exports/menubar.js").default;
 const path = require("path");
 const isDev = require("electron-is-dev");
 
