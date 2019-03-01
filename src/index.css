@@ -14,8 +14,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-app-region: drag;
   min-height: 100vh;
-  background: #daddef;
+  background: #d8d9e6;
   font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.7);
 }
 
 code {

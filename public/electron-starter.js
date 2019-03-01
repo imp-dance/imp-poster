@@ -1,11 +1,5 @@
-const {
-  app,
-  BrowserWindow,
-  shell,
-  ipcMain,
-  Menu,
-  TouchBar
-} = require("electron");
+const electron = require("electron");
+const { app, BrowserWindow, shell, ipcMain, Menu, TouchBar } = electron;
 const { TouchBarButton, TouchBarLabel, TouchBarSpacer } = TouchBar;
 const menubarTemplate = require("../src/exports/menubar.js").default;
 const path = require("path");
@@ -14,21 +8,28 @@ const isDev = require("electron-is-dev");
 let mainWindow;
 
 createWindow = () => {
+  let definedHeight = 480;
+  let definedWidth = 425;
+  let display = electron.screen.getPrimaryDisplay();
+  let displayWidth = display.bounds.width;
   mainWindow = new BrowserWindow({
     backgroundColor: "#daddef",
     show: false,
     titleBarStyle: "customButtonsOnHover",
     frame: false,
+    alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: false,
       preload: __dirname + "/preload.js"
     },
-    height: 550,
-    width: 450,
-    maxWidth: 450,
-    maxHeight: 550,
-    minHeight: 550,
-    minWidth: 350
+    height: definedHeight,
+    maxHeight: definedHeight,
+    minHeight: definedHeight,
+    width: definedWidth,
+    maxWidth: definedWidth,
+    minWidth: definedWidth,
+    x: displayWidth - definedWidth,
+    y: 0
   });
   mainWindow.hide();
   mainWindow.loadURL(

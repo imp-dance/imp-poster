@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1>imp-publisher</h1>
+        <h1>imp-Poster</h1>
       </header>
     );
   }
