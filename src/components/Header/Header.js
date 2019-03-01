@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1>React App</h1>
+        <h1>React/Electron App</h1>
       </header>
     );
   }

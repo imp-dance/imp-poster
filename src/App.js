@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 const remote = window.require("electron").remote;
 const browserWindow = remote.getCurrentWindow();
 browserWindow.show();
