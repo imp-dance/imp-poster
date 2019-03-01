@@ -1,4 +1,9 @@
 header h1 {
-  font-size: calc(36px + 10.5vh);
-  margin: 20px;
+  font-size: 62px;
+  margin: 0px;
+}
+header {
+  padding: 30px;
+  text-align: center;
+  background: #555e92;
 }
