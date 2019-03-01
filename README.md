@@ -2,7 +2,7 @@
 
 ```PowerShell
 git clone https://github.com/imp-dance/create-react-electron-app.git
--
+
 npm i
 npm run start
 - 
