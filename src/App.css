@@ -1,7 +1,8 @@
 .App {
   color: #f9f9f9;
 }
-header h1 {
-  font-size: calc(36px + 10.5vh);
-  margin: 20px;
+
+body {
+  -webkit-app-region: drag;
+  min-height: 100vh;
 }

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
-const remote = window.require("electron").remote;
-const browserWindow = remote.getCurrentWindow();
+const browserWindow = window.remote.getCurrentWindow();
 browserWindow.show();
 class App extends Component {
   state = {};
