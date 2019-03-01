@@ -1,6 +1,9 @@
 # React build
 build
 
+#Mac
+.DS_STORE
+
 # Logs
 logs
 *.log
