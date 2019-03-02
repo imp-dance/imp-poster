@@ -7,6 +7,7 @@ class PublishForm extends Component {
   state = {
     title: "",
     body: "",
+    tags: "",
     setPassword: "",
     previousKey: "",
     passwordUpdated: false,
@@ -34,19 +35,32 @@ class PublishForm extends Component {
     this.setState({ body: event.target.value, hasClickedOnce: false });
   }.bind(this);
   clickGenerate = function() {
-    let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
+    let convertedBody = this.state.body;
+    let gottenTags = convertedBody.match(/\{.*?\}/g);
+    convertedBody = convertedBody.replace(gottenTags, "");
+    gottenTags = gottenTags[0];
+    gottenTags = gottenTags.substring(1);
+    gottenTags = gottenTags.substring(0, gottenTags.length - 1);
+    gottenTags = gottenTags.replace(",", '","');
+    gottenTags = `["${gottenTags}"]`;
+    convertedBody = this.replaceBreaksWithParagraphs(convertedBody);
     convertedBody = convertedBody.replace(
       /\[([^[\]]+)\]\(([^)]+())\)/g,
       "<a href='$2'>$1</a>"
     );
     convertedBody = convertedBody.replace("<p><p>", "<p>");
     convertedBody = convertedBody.replace("</p></p>", "</p>");
-    this.setState({ body: convertedBody, hasClickedOnce: true });
+    this.setState({
+      body: convertedBody,
+      hasClickedOnce: true,
+      tags: gottenTags
+    });
   }.bind(this);
   clickSubmit = function() {
     let data = new FormData();
     data.append("password", this.state.setPassword);
     data.append("title", this.state.title);
+    data.append("tags", this.state.tags);
     let currentBody = this.state.body;
     data.append("body", currentBody);
     let xmlhttp = new XMLHttpRequest();
