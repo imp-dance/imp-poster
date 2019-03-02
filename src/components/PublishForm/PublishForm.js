@@ -38,11 +38,13 @@ class PublishForm extends Component {
     let convertedBody = this.state.body;
     let gottenTags = convertedBody.match(/\{.*?\}/g);
     convertedBody = convertedBody.replace(gottenTags, "");
-    gottenTags = gottenTags[0];
-    gottenTags = gottenTags.substring(1);
-    gottenTags = gottenTags.substring(0, gottenTags.length - 1);
-    gottenTags = gottenTags.replace(",", '","');
-    gottenTags = `["${gottenTags}"]`;
+    if (gottenTags !== null) {
+      gottenTags = gottenTags[0];
+      gottenTags = gottenTags.substring(1);
+      gottenTags = gottenTags.substring(0, gottenTags.length - 1);
+      gottenTags = gottenTags.replace(",", '","');
+      gottenTags = `["${gottenTags}"]`;
+    }
     convertedBody = this.replaceBreaksWithParagraphs(convertedBody);
     convertedBody = convertedBody.replace(
       /\[([^[\]]+)\]\(([^)]+())\)/g,
@@ -78,6 +80,8 @@ class PublishForm extends Component {
           // error
           if (response.errorCode === 1 || response.errorCode === 4) {
             this.setState({ body: currentBody + "\nWRONG PASSWORD" });
+          } else if (response.errorCode === 2) {
+            this.setState({ body: currentBody + "\nSUPPLY TITLE" });
           }
         }
       }
