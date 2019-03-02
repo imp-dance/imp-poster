@@ -90,6 +90,14 @@
   position: relative;
   margin: 5px 0;
 }
+.form button:focus,
+.form input[type="submit"]:focus,
+.form input[type="button"]:focus {
+  background: var(--highlight) !important;
+  box-shadow: 0 0 3px #000;
+  -moz-box-shadow: 0 0 3px #000;
+  -webkit-box-shadow: 0 0 3px #000;
+}
 .form button:after,
 .form input[type="submit"]:after,
 .form input[type="button"]:after {
