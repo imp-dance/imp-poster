@@ -1,3 +1,9 @@
 .App {
-  border-radius: 20px;
+  border-radius: 10px;
+  background: #151629;
+  border-radius: 9px;
+  background: #151629;
+  height: calc(100vh);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.7);
 }

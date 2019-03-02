@@ -3,6 +3,9 @@
 *:after {
   box-sizing: inherit;
 }
+html {
+  background: transparent;
+}
 body {
   box-sizing: border-box;
   margin: 0;
@@ -13,9 +16,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background: #d8d9e6;
+  background: transparent;
   font-size: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.7);
+  /*border: 1px solid rgba(0, 0, 0, 0.7);*/
 }
 
 code {

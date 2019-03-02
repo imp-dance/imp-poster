@@ -14,7 +14,7 @@ class PublishForm extends Component {
     this.setState({ title: event.target.value });
   }.bind(this);
   titleClicked = function(event) {
-    if (this.state.previousKey == "@" && event.key == "@") {
+    if (this.state.previousKey === "@" && event.key === "@") {
       this.setState({
         title: "",
         setPassword: event.target.value.split("@")[0],
@@ -32,8 +32,6 @@ class PublishForm extends Component {
     this.setState({ body: event.target.value });
   }.bind(this);
   clickSubmit = function() {
-    let password = this.state.title.split("@@")[0] || "";
-    let actualTitle = this.state.title.split("@@")[1] || "";
     let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
     convertedBody = convertedBody.replace(
       /\[([^[\]]+)\]\(([^)]+())\)/g,
@@ -41,7 +39,33 @@ class PublishForm extends Component {
     );
     convertedBody = convertedBody.replace("<p><p>", "<p>");
     convertedBody = convertedBody.replace("</p></p>", "</p>");
-    this.setState({ body: convertedBody, title: actualTitle });
+    this.setState({ body: convertedBody });
+    let data = new FormData();
+    data.append("password", this.state.setPassword);
+    data.append("title", this.state.title);
+    data.append("body", this.state.body);
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "https://impedans.me/api/poster/index.php");
+    xmlhttp.send(data);
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        let response = JSON.parse(xmlhttp.responseText);
+        console.log(response);
+      }
+    };
+    /*data.append("json", JSON.stringify(jsonData));
+    fetch("https://impedans.me/api/poster/index.php", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      cache: "no-cache",
+      body: JSON.stringify(jsonData)
+    })
+      .then(response => response.text())
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });*/
     // submit shit to server
     // wait for response
     // browserWindow.close();
@@ -72,7 +96,7 @@ class PublishForm extends Component {
           text={this.state.title}
           className={setPasswordClass}
           onChange={this.titleChanged}
-          onKeyPress={this.titleClicked}
+          onKeyUp={this.titleClicked}
         />
         <FormInput
           type="textarea"

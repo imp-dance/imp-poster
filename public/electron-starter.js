@@ -12,12 +12,12 @@ createWindow = () => {
   let definedWidth = 425;
   let display = electron.screen.getPrimaryDisplay();
   let displayWidth = display.bounds.width;
+  // backgroundColor: "#daddef"
   mainWindow = new BrowserWindow({
-    backgroundColor: "#daddef",
     show: false,
-    titleBarStyle: "customButtonsOnHover",
     frame: false,
     alwaysOnTop: true,
+    transparent: true,
     webPreferences: {
       nodeIntegration: false,
       preload: __dirname + "/preload.js"
