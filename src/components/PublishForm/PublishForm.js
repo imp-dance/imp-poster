@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import "../../form.css";
 import "./PublishForm.css";
-//const browserWindow = window.remote.getCurrentWindow();
+const browserWindow = window.remote.getCurrentWindow();
+const shell = window.remote.shell;
 class PublishForm extends Component {
   state = {
     title: "",
     body: "",
     setPassword: "",
     previousKey: "",
-    passwordUpdated: false
+    passwordUpdated: false,
+    hasClickedOnce: false
   };
   titleChanged = function(event) {
     this.setState({ title: event.target.value });
@@ -31,7 +33,7 @@ class PublishForm extends Component {
   bodyChanged = function(event) {
     this.setState({ body: event.target.value });
   }.bind(this);
-  clickSubmit = function() {
+  clickGenerate = function() {
     let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
     convertedBody = convertedBody.replace(
       /\[([^[\]]+)\]\(([^)]+())\)/g,
@@ -39,11 +41,14 @@ class PublishForm extends Component {
     );
     convertedBody = convertedBody.replace("<p><p>", "<p>");
     convertedBody = convertedBody.replace("</p></p>", "</p>");
-    this.setState({ body: convertedBody });
+    this.setState({ body: convertedBody, hasClickedOnce: true });
+  }.bind(this);
+  clickSubmit = function() {
     let data = new FormData();
     data.append("password", this.state.setPassword);
     data.append("title", this.state.title);
-    data.append("body", this.state.body);
+    let currentBody = this.state.body;
+    data.append("body", currentBody);
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", "https://impedans.me/api/poster/index.php");
     xmlhttp.send(data);
@@ -51,24 +56,18 @@ class PublishForm extends Component {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         let response = JSON.parse(xmlhttp.responseText);
         console.log(response);
+        if (response.status === "success") {
+          // did upload
+          shell.openExternal("https://haakon.underbakke.net");
+          browserWindow.close();
+        } else {
+          // error
+          if (response.errorCode === 1 || response.errorCode === 4) {
+            this.setState({ body: currentBody + "\nWRONG PASSWORD" });
+          }
+        }
       }
-    };
-    /*data.append("json", JSON.stringify(jsonData));
-    fetch("https://impedans.me/api/poster/index.php", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      cache: "no-cache",
-      body: JSON.stringify(jsonData)
-    })
-      .then(response => response.text())
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.log(err);
-      });*/
-    // submit shit to server
-    // wait for response
-    // browserWindow.close();
+    }.bind(this);
   }.bind(this);
   replaceBreaksWithParagraphs(input) {
     input = this.filterEmpty(input.split("\n")).join("</p>\n<p>");
@@ -87,6 +86,10 @@ class PublishForm extends Component {
   render() {
     let className = this.props.onecolumn ? "form onecolumn" : "form";
     let setPasswordClass = this.state.passwordUpdated ? "passwordUpdated" : "";
+    let clickEvent = this.state.hasClickedOnce
+      ? this.clickSubmit
+      : this.clickGenerate;
+    let submitText = this.state.hasClickedOnce ? "Submit" : "Generate";
     return (
       <div className={className}>
         <FormInput
@@ -104,7 +107,7 @@ class PublishForm extends Component {
           text={this.state.body}
           onChange={this.bodyChanged}
         />
-        <FormInput type="submit" text="Publish" onClick={this.clickSubmit} />
+        <FormInput type="submit" text={submitText} onClick={clickEvent} />
       </div>
     );
   }

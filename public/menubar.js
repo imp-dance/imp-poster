@@ -42,7 +42,7 @@ const menubarTemplate = () => {
         {
           click() {
             require("electron").shell.openExternal(
-              "https://getstream.io/winds"
+              "https://github.com/imp-dance/imp-poster"
             );
           },
           label: "Learn More"
@@ -50,7 +50,7 @@ const menubarTemplate = () => {
         {
           click() {
             require("electron").shell.openExternal(
-              "https://github.com/GetStream/Winds/issues"
+              "https://github.com/imp-dance/imp-poster/issues"
             );
           },
           label: "File Issue on GitHub"
