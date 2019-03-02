@@ -31,7 +31,7 @@ class PublishForm extends Component {
     this.setState({ previousKey: event.key });
   }.bind(this);
   bodyChanged = function(event) {
-    this.setState({ body: event.target.value });
+    this.setState({ body: event.target.value, hasClickedOnce: false });
   }.bind(this);
   clickGenerate = function() {
     let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
