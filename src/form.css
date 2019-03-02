@@ -158,3 +158,6 @@ label.focused textarea,
 label.focused input {
   background: #fff !important;
 }
+.passwordUpdated {
+  border-color: rgb(76, 167, 49) !important;
+}

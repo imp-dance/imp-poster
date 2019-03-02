@@ -3,21 +3,44 @@ import "../../form.css";
 import "./PublishForm.css";
 //const browserWindow = window.remote.getCurrentWindow();
 class PublishForm extends Component {
-  state = { title: "", body: "" };
+  state = {
+    title: "",
+    body: "",
+    setPassword: "",
+    previousKey: "",
+    passwordUpdated: false
+  };
   titleChanged = function(event) {
     this.setState({ title: event.target.value });
+  }.bind(this);
+  titleClicked = function(event) {
+    if (this.state.previousKey == "@" && event.key == "@") {
+      this.setState({
+        title: "",
+        setPassword: event.target.value.split("@")[0],
+        passwordUpdated: true
+      });
+      setTimeout(() => {
+        this.setState({
+          passwordUpdated: false
+        });
+      }, 500);
+    }
+    this.setState({ previousKey: event.key });
   }.bind(this);
   bodyChanged = function(event) {
     this.setState({ body: event.target.value });
   }.bind(this);
   clickSubmit = function() {
-    let password = this.state.title.split("||")[0] || "";
-    let actualTitle = this.state.title.split("||")[1] || "";
+    let password = this.state.title.split("@@")[0] || "";
+    let actualTitle = this.state.title.split("@@")[1] || "";
     let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
     convertedBody = convertedBody.replace(
       /\[([^[\]]+)\]\(([^)]+())\)/g,
       "<a href='$2'>$1</a>"
     );
+    convertedBody = convertedBody.replace("<p><p>", "<p>");
+    convertedBody = convertedBody.replace("</p></p>", "</p>");
     this.setState({ body: convertedBody, title: actualTitle });
     // submit shit to server
     // wait for response
@@ -39,6 +62,7 @@ class PublishForm extends Component {
   }
   render() {
     let className = this.props.onecolumn ? "form onecolumn" : "form";
+    let setPasswordClass = this.state.passwordUpdated ? "passwordUpdated" : "";
     return (
       <div className={className}>
         <FormInput
@@ -46,7 +70,9 @@ class PublishForm extends Component {
           label="Title"
           autoFocus
           text={this.state.title}
+          className={setPasswordClass}
           onChange={this.titleChanged}
+          onKeyPress={this.titleClicked}
         />
         <FormInput
           type="textarea"
