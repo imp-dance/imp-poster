@@ -1,14 +1,4 @@
-# create-react-app + electron = ♥
+# ya can test it, can't post tho
+This is a personal project. To post, you need to set a password (type your password in the title box followed by "@@" to set the password). You are welcome to check out the source code though, or try it out (it'll still convert the body if you don't pass/pass the wrong password).
 
-```PowerShell
-git clone https://github.com/imp-dance/create-react-electron-app.git
-
-npm i
-npm run start
-- 
-yarn i
-yarn start
-```
-
-* https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c
-* https://getstream.io/blog/takeaways-on-building-a-react-based-app-with-electron/
+I built this upon my other repository, [create-react-electron-app](https://github.com/imp-dance/create-react-electron-app), which might be more interesting to check out. 
