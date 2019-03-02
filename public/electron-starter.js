@@ -2,7 +2,7 @@ const electron = require("electron");
 const { app, BrowserWindow, shell, ipcMain, Menu, TouchBar } = electron;
 const { TouchBarButton, TouchBarLabel, TouchBarSpacer } = TouchBar;
 const path = require("path");
-const menubarTemplate = require("menubar").default;
+const menubarTemplate = require(path.join(__dirname, "menubar.js")).default;
 const isDev = require("electron-is-dev");
 
 let mainWindow;

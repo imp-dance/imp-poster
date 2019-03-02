@@ -4,7 +4,6 @@
   grid-gap: 0.5em;
   font-size: 1.8em;
   --highlight: #4282e8;
-  transform: translate(5px, 5px);
 }
 .form.onecolumn {
   grid-template-columns: 1fr;
@@ -39,7 +38,6 @@
   padding: 0.45em;
   border: 2px solid #fff;
   font-size: 1em;
-  transform: translate(-5px, -30px);
   background: rgba(255, 255, 255, 0.5);
 }
 .form input[type="text"]:focus,
@@ -70,6 +68,7 @@
   user-select: none;
   color: #3e3b42;
   font-variant: small-caps;
+  text-transform: uppercase;
   padding: 5px 0 0 5px;
 }
 .form select {
@@ -90,7 +89,6 @@
   font-size: 1em;
   position: relative;
   margin: 5px 0;
-  transform: translate(-5px, -30px);
 }
 .form button:after,
 .form input[type="submit"]:after,
@@ -110,7 +108,7 @@
 .form input[type="submit"]:hover,
 .form input[type="button"]:hover {
   transition: transform 0.2s ease-in-out;
-  transform: translate(-5px, -32px);
+  transform: translate(0px, -2px);
 }
 .form button:hover:after,
 .form input[type="submit"]:hover:after,

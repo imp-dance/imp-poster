@@ -9,4 +9,5 @@ header {
   background: #1c2142;
   user-select: none;
   color: #f9f9f9;
+  -webkit-app-region: drag;
 }

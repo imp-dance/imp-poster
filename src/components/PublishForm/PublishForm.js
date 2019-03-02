@@ -1,15 +1,42 @@
 import React, { Component } from "react";
 import "../../form.css";
 import "./PublishForm.css";
-const browserWindow = window.remote.getCurrentWindow();
+//const browserWindow = window.remote.getCurrentWindow();
 class PublishForm extends Component {
   state = { title: "", body: "" };
   titleChanged = function(event) {
     this.setState({ title: event.target.value });
   }.bind(this);
+  bodyChanged = function(event) {
+    this.setState({ body: event.target.value });
+  }.bind(this);
   clickSubmit = function() {
-    browserWindow.close();
-  };
+    let password = this.state.title.split("||")[0] || "";
+    let actualTitle = this.state.title.split("||")[1] || "";
+    let convertedBody = this.replaceBreaksWithParagraphs(this.state.body);
+    convertedBody = convertedBody.replace(
+      /\[([^[\]]+)\]\(([^)]+())\)/g,
+      "<a href='$2'>$1</a>"
+    );
+    this.setState({ body: convertedBody, title: actualTitle });
+    // submit shit to server
+    // wait for response
+    // browserWindow.close();
+  }.bind(this);
+  replaceBreaksWithParagraphs(input) {
+    input = this.filterEmpty(input.split("\n")).join("</p>\n<p>");
+    return "<p>" + input + "</p>\n";
+  }
+  filterEmpty(arr) {
+    var new_arr = [];
+
+    for (var i = arr.length - 1; i >= 0; i--) {
+      if (arr[i] !== "") new_arr.push(arr.pop());
+      else arr.pop();
+    }
+
+    return new_arr.reverse();
+  }
   render() {
     let className = this.props.onecolumn ? "form onecolumn" : "form";
     return (
@@ -21,7 +48,12 @@ class PublishForm extends Component {
           text={this.state.title}
           onChange={this.titleChanged}
         />
-        <FormInput type="textarea" label="Body" text={this.state.body} />
+        <FormInput
+          type="textarea"
+          label="Body"
+          text={this.state.body}
+          onChange={this.bodyChanged}
+        />
         <FormInput type="submit" text="Publish" onClick={this.clickSubmit} />
       </div>
     );

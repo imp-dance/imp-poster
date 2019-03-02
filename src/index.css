@@ -12,7 +12,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-app-region: drag;
   min-height: 100vh;
   background: #d8d9e6;
   font-size: 16px;

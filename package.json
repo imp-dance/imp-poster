@@ -1,5 +1,5 @@
 {
-  "name": "ImpPoster",
+  "name": "imp-poster",
   "description": "ImpPoster",
   "version": "0.1.0",
   "private": true,
@@ -41,6 +41,7 @@
     "appId": "com.impedans.me",
     "copyright": "Copyright © 2019 LIGL AS",
     "productName": "ImpPoster",
+    "publish": null,
     "directories": {
       "buildResources": "build",
       "output": "dist"
@@ -52,7 +53,7 @@
     "dmg": {
       "backgroundColor": "#21212d",
       "icon": "assets/icons/mac/icon.icns",
-      "title": "Ida by LIGL ${version}",
+      "title": "ImpPoster ${version}",
       "window": {
         "width": "400"
       }
